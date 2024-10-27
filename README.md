@@ -74,5 +74,8 @@ chmod +x /usr/local/bin/argocd
 ```bash
 argocd login argocd.example.com --username admin --password <INITIAL_PASSWORD> --insecure
 ```
-
+### Add Repositories to Argo CD Using the Token:
+```bash
+argocd repo add https://gitlab.com/my-organization/my-repo.git --username <your-gitlab-username> --password <personal-access-token>
+```
 
