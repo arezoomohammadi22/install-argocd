@@ -52,7 +52,7 @@ If you have an SSL certificate and key, create a Kubernetes secret:
 kubectl create secret tls argocd-tls --cert=path/to/tls.crt --key=path/to/tls.key -n argocd
 ```
 Alternatively, you can use cert-manager to automatically generate a TLS certificate.
-### 3. Login to Argo CD
+### Login to Argo CD
 Get the initial admin password:
 ```bash
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
@@ -65,4 +65,14 @@ Change the admin password (recommended):
 argocd login <ARGOCD_SERVER> --username admin --password <INITIAL_PASSWORD>
 argocd account update-password
 ```
+### Install the Argo CD CLI
+``` bash
+curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+chmod +x /usr/local/bin/argocd
+```
+### Login to Argo CD
+```bash
+argocd login argocd.example.com --username admin --password <INITIAL_PASSWORD> --insecure
+```
+
 
