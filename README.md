@@ -19,8 +19,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 Create an Ingress Resource
 Create a file named argocd-ingress.yaml with the following content:
-```bash
-apiVersion: networking.k8s.io/v1
+```bashapiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-server-ingress
@@ -29,13 +28,14 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
+  ingressClassName: nginx  # Specify NGINX as the Ingress controller
   rules:
     - host: argocd.example.com  # Replace with your domain name
       http:
         paths:
           - path: /
             pathType: Prefix
-            backend
+            backend:
               service:
                 name: argocd-server
                 port:
@@ -44,6 +44,7 @@ spec:
     - hosts:
         - argocd.example.com  # Replace with your domain name
       secretName: argocd-tls
+
 ```
 ### Create a TLS Secret (Optional)
 If you have an SSL certificate and key, create a Kubernetes secret:
